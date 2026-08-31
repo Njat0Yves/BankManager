@@ -3,22 +3,21 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/Njat0Yves/BankManager.git'
-            }
-        }
-
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                bat 'cd BankManager && mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvn test'
+                bat 'cd BankManager && mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat 'cd BankManager && mvn package -DskipTests'
             }
         }
     }
